@@ -27,9 +27,19 @@ const Attendance = ({ token, setToken, attendanceApiUrl, attendance, setAttendan
 
 	return (
 		<>
-			<Navbar setToken={setToken} attLoad={attLoad} setPass={setPass} setUser={setUser} getAttendance = {getAttendance}/>
-			<div className='p-4 flex justify-center items-center text-lg'>
-				{attendance != -1 && <p>Your attendance is {attendance}</p>}
+			<Navbar
+				setToken={setToken}
+				attLoad={attLoad}
+				setPass={setPass}
+				setUser={setUser}
+				getAttendance={getAttendance}
+			/>
+			<div className='flex w-full h-[calc(50vh)] justify-center items-center'>
+				{attendance != -1 && (
+					<p className='text-xl'>
+						Your attendance is <span className="font-medium">{attendance}</span>
+					</p>
+				)}
 			</div>
 		</>
 	);

@@ -2,9 +2,11 @@ import { useState } from 'react'
 import axios from 'axios'
 import Attendance from './components/Attendance'
 import Cookies from 'js-cookie'
+import { RefreshCw } from 'lucide-react'
 
 function App() {
   const [user, setUser] = useState("")
+  const [error, setError] = useState("")
   const [pass, setPass] = useState("")
   const [attendance, setAttendance] = useState(-1)
   const [token, setToken] = useState(
@@ -30,10 +32,10 @@ function App() {
       Cookies.set("jwt", response.data.token, {
       expires: 60,
     })
-    setToken
-      
+    setError("")
 		} catch (err) {
 			console.log(err.message);
+      setError("Wrong Credentials!")
 		} finally {
 			setLoading(false);
 		}
@@ -42,38 +44,48 @@ function App() {
 		<>
 			{!token && (
 				<div className='text-xl w-full flex justify-center mt-10'>
-					<div className='flex flex-col justify-center items-center gap-5 p-4 border-2 border-black size-fit rounded-md'>
-						<p>Login to ABES Simplifii!</p>
+					<div className='flex flex-col justify-center items-center gap-6 p-5 border-2 border-black rounded-md'>
+						<p className='font-medium'>Login to ABES Simplifii!</p>
 						<input
 							type='text'
 							id='user'
 							value={user}
-							className='border-black border-2 rounded-md px-3 py-1'
+							className='border-black border-2 rounded-md px-3 py-1 max-w-[250px]'
 							onChange={(e) => setUser(e.target.value)}
 						/>
 						<input
 							type='password'
 							id='pass'
 							value={pass}
-							className='border-black border-2 rounded-md px-3 py-1'
+							className='border-black border-2 rounded-md px-3 py-1 max-w-[250px]'
 							onChange={(e) => setPass(e.target.value)}
 						/>
 						<button
 							onClick={handleLogin}
-							className='border-black border-2 rounded-md px-3 py-1'
+							className='border-black border-2 rounded-md px-3 py-1 '
 						>
-							Submit
+							{loading ? (
+								<RefreshCw className={`${loading && "animate-spin"}`} />
+							) : (
+								"Submit"
+							)}
 						</button>
 					</div>
 				</div>
 			)}
 
+			{error && (
+				<p className='text-red-500 text-lg font-medium text-center mt-3'>
+					{error}
+				</p>
+			)}
+
 			{token && (
 				<Attendance
 					token={token}
-          setUser = {setUser}
-          setPass = {setPass}
-          setToken = {setToken}
+					setUser={setUser}
+					setPass={setPass}
+					setToken={setToken}
 					attendanceApiUrl={attendanceApiUrl}
 					attendance={attendance}
 					setAttendance={setAttendance}

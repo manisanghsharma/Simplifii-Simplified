@@ -43,6 +43,8 @@ function App() {
   return (
 		<>
 			{!token && (
+        <>
+        <h1 className='p-5 text-[32px] font-semibold text-center'>Simplifii Simplified</h1>
 				<div className='text-xl w-full flex justify-center mt-10'>
 					<div className='flex flex-col justify-center items-center gap-6 p-5 border-2 border-black rounded-md'>
 						<p className='font-medium'>Login to ABES Simplifii!</p>
@@ -65,13 +67,14 @@ function App() {
 							className='border-black border-2 rounded-md px-3 py-1 '
 						>
 							{loading ? (
-								<RefreshCw className={`${loading && "animate-spin"}`} />
+								<RefreshCw size = {28} className={`${loading && "animate-spin"}`} />
 							) : (
 								"Submit"
 							)}
 						</button>
 					</div>
 				</div>
+        </>
 			)}
 
 			{error && (

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const Attendance = ({ token, setToken, attendanceApiUrl, attendance, setAttendance, setPass, setUser }) => {
 	const [attLoad, setattLoad] = useState(false);
@@ -41,6 +42,7 @@ const Attendance = ({ token, setToken, attendanceApiUrl, attendance, setAttendan
 					</p>
 				)}
 			</div>
+        <Footer/>
 		</>
 	);
 };

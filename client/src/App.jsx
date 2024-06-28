@@ -3,6 +3,7 @@ import axios from 'axios'
 import Attendance from './components/Attendance'
 import Cookies from 'js-cookie'
 import { RefreshCw } from 'lucide-react'
+import Footer from './components/Footer'
 
 function App() {
   const [user, setUser] = useState("")
@@ -94,6 +95,7 @@ function App() {
 					setAttendance={setAttendance}
 				/>
 			)}
+      <Footer />
 		</>
 	);
 }

@@ -6,7 +6,7 @@ export function daysTo75 (current, total) {
 
 export function calcDays(days) {
 	const holidays = {
-		"2024-07-17": true,
+		// "2024-07-09": true,
 		// Add more holidays here in the format 'YYYY-MM-DD': true
 	};
 	let currentDate = new Date();
@@ -46,3 +46,5 @@ export function formatDate(date) {
 
 	return `${day} ${monthNames[monthIndex]} ${year}`;
 }
+
+console.log(formatDate(calcDays(daysTo75(235, 366))));

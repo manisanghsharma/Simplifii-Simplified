@@ -16,7 +16,6 @@ const Attendance = ({
 	const [attLoad, setattLoad] = useState(false);
 	const [current, setCurrent] = useState(0);
 	const [total, setTotal] = useState(0);
-	const [date, setDate] = useState("")
 	const getAttendance = async () => {
 		try {
 			setattLoad(true);
@@ -35,8 +34,8 @@ const Attendance = ({
 		}
 	};
 	useEffect(() => {
+		
 		getAttendance();
-		setDate(formatDate(calcDays(daysTo75(current, total))))
 	}, []);
 
 	return (
@@ -48,23 +47,28 @@ const Attendance = ({
 				setUser={setUser}
 				getAttendance={getAttendance}
 			/>
-			<div className='flex-col gap-8 flex m-auto max-w-[400px] w-[85%] h-[calc(100vh-205px)] justify-center items-center text-center'>
+			<div className='flex-col gap-8 lg:gap-10 flex m-auto max-w-[550px] w-[90%] h-[calc(100%-244px)] justify-center items-center text-pretty text-center'>
 				{attendance != -1 && (
-					<p className='text-[22px]'>
+					<p className='text-[23px]'>
 						Your attendance is{" "}
 						<span className='font-medium'>{attendance}%</span>
 					</p>
 				)}
-				{attendance < 75 && (
+				{attendance < 75 && attendance != -1 && (
 					<>
 						<p className='text-[19px] text-gray-700'>
 							You need to attend college for{" "}
-							<span className='font-medium text-black'>{daysTo75(current, total)}</span>{" "}
-							working days to achieve 75% attendance
+							<span className='font-medium text-black'>
+								{daysTo75(current, total)}
+							</span>{" "}
+							working days in order to achieve{" "}
+							<span className='font-medium text-black'>75%</span> attendance
 						</p>
 						<span className='text-[19px] text-gray-700'>
 							That requires presence at every lecture until{" "}
-							<span className='font-medium text-black'>{date}</span>
+							<span className='font-medium text-black'>
+								{formatDate(calcDays(daysTo75(current, total)))}
+							</span>
 						</span>
 					</>
 				)}

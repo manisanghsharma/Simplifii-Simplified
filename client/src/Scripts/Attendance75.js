@@ -1,15 +1,14 @@
-const daysTo75 = (current, total) => {
+export function daysTo75 (current, total) {
     const x = Math.ceil((3*total - 4*current)/8)
     return x
 }
 
 
-const holidays = {
-	// "2024-07-17": true,
-	// Add more holidays here in the format 'YYYY-MM-DD': true
-};
-
-function addDaysExcludingWeekendsAndHolidays(days) {
+export function calcDays(days) {
+	const holidays = {
+		"2024-07-17": true,
+		// Add more holidays here in the format 'YYYY-MM-DD': true
+	};
 	let currentDate = new Date();
 	while (days > 0) {
 		currentDate.setDate(currentDate.getDate() + 1);
@@ -26,7 +25,7 @@ function addDaysExcludingWeekendsAndHolidays(days) {
 	return currentDate;
 }
 
-function formatDate(date) {
+export function formatDate(date) {
 	const monthNames = [
 		"January",
 		"February",
@@ -47,9 +46,3 @@ function formatDate(date) {
 
 	return `${day} ${monthNames[monthIndex]} ${year}`;
 }
-
-const days = daysTo75(227, 346)
-
-const finalDate = formatDate(addDaysExcludingWeekendsAndHolidays(days))
-
-console.log(finalDate);

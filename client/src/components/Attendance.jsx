@@ -24,9 +24,10 @@ const Attendance = ({
 					Authorization: "Bearer " + token,
 				},
 			});
-			setAttendance(parseFloat(response.data.response.data[16].attendance_summary.Percent));
-			setCurrent(response.data.response.data[16].attendance_summary.Present);
-			setTotal(response.data.response.data[16].attendance_summary.Total);
+			const attArr = response.data.response.data
+			setAttendance(parseFloat(attArr[attArr.length-1].attendance_summary.Percent));
+			setCurrent(attArr[attArr.length - 1].attendance_summary.Present);
+			setTotal(attArr[attArr.length - 1].attendance_summary.Total);
 		} catch (err) {
 			console.log(err.message);
 		} finally {

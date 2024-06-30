@@ -46,5 +46,3 @@ export function formatDate(date) {
 
 	return `${day} ${monthNames[monthIndex]} ${year}`;
 }
-
-console.log(formatDate(calcDays(daysTo75(235, 366))));

@@ -12,7 +12,9 @@ const Attendance = ({
 	setAttendance,
 	setPass,
 	setUser,
+	test, name, roll
 }) => {
+
 	const [attLoad, setattLoad] = useState(false);
 	const [current, setCurrent] = useState(0);
 	const [total, setTotal] = useState(0);
@@ -37,6 +39,8 @@ const Attendance = ({
 	useEffect(() => {
 		
 		getAttendance();
+		console.log(test);
+		
 	}, []);
 
 	return (
@@ -49,6 +53,7 @@ const Attendance = ({
 				getAttendance={getAttendance}
 			/>
 			<div className='flex-col gap-8 lg:gap-10 flex m-auto max-w-[550px] w-[90%] h-[calc(100%-244px)] justify-center items-center text-pretty text-center'>
+				
 				{attendance != -1 && (
 					<p className='text-[23px]'>
 						Your attendance is{" "}

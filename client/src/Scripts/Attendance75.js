@@ -3,6 +3,10 @@ export function daysTo75 (current, total) {
     return x
 }
 
+export function daysToX(current, total, X){
+	const x = Math.ceil(((total*X-100*current)/(100-X))/8)
+	return x
+}
 
 export function calcDays(days) {
 	const holidays = {

@@ -2,18 +2,18 @@ import { Heart } from "lucide-react";
 
 const Footer = () => {
   return (
-		<>
-			<p className='flex justify-center items-center absolute right-0 left-0 m-auto text-md bottom-3 gap-1 text-gray-600 '>
-				Made with <Heart fill='red' strokeWidth={0} size={17} /> by{" "}
-				<a
-					href='https://www.linkedin.com/in/manisangh/'
-					target='_blank'
-					className='text-black font-medium'
-				>
-					Manisangh
-				</a>
+		<footer className='py-4 text-center text-gray-600'>
+			<p className='flex items-center justify-center gap-1'>
+				Made with{" "}
+				<Heart
+					size={16}
+					fill='#EC4899'
+					color='#EC4899'
+					className='animate-pulse'
+				/>{" "}
+				by <span className='font-bold'>Manisangh</span>
 			</p>
-		</>
+		</footer>
 	);
 }
 export default Footer

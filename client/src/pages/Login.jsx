@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-	const {user, setUser, setToken, error, setError} = useContext(AppContext)
+	const {user, setUser, setToken, error, setError, setName} = useContext(AppContext)
 	const [loading, setLoading] = useState(false);
 	const [pass, setPass] = useState("")
 	const [showPassword, setShowPassword] = useState(false);
@@ -14,9 +14,7 @@ const Login = () => {
 	const loginApiUrl =
 		"https://abes.platform.simplifii.com/api/v1/admin/authenticate";
 
-	const attendanceApiUrl =
-		"https://abes.platform.simplifii.com/api/v1/custom/getCFMappedWithStudentID?embed_attendance_summary=1";
-
+	
 	const handleLogin = async(e) => {
 		try {
 			e.preventDefault()
@@ -25,9 +23,8 @@ const Login = () => {
 				username: user,
 				password: pass,
 			});
-			setUser(user)
-			console.log(response.data.response.name)
-			
+			Cookies.set('ssroll', user)
+			Cookies.set('ssname', response.data.response.name) 
 			setToken(response.data.token);
 			Cookies.set("ssjwt", response.data.token, {
 				expires: 100,

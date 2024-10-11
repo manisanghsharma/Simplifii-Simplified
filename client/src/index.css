@@ -13,5 +13,6 @@
 @tailwind utilities;
 
 #root{
-    @apply w-full h-screen
+    @apply w-full h-[100dvh] 
 }
+

@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
-import { Menu, X, Info, CircleUser, LogOut } from "lucide-react";
+import { Menu, X, Info, CircleUser, LogOut, Download } from "lucide-react";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -12,14 +12,8 @@ const Navbar = () => {
 	const handleLogout = () => {
 		setToken("");
 		setUser("");
-
-		// Clear all items from localStorage
 		window.localStorage.clear();
-
-		// Remove the specific cookie
 		Cookies.remove("ssjwt");
-
-		// Navigate to login page
 		navigate("/login");
 	};
 

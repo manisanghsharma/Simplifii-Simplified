@@ -5,7 +5,6 @@ import Navbar from "../components/Navbar";
 const AttendanceUI = () => {
 	return (
 		<div className='h-[100dvh] bg-indigo-50 relative flex flex-col'>
-
 			{/* Main Content */}
 			<div className='relative z-0 flex-1 flex flex-col'>
 				<Navbar />

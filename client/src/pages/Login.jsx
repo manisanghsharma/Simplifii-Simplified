@@ -1,8 +1,10 @@
 import React, { useContext, useState } from "react";
 import Cookies from 'js-cookie'
-import { Heart, User, Lock, Eye, EyeOff } from "lucide-react";
+import { User, Lock, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { AppContext } from "../contexts/AppContext";
+import Footer from "../components/Footer";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -50,28 +52,11 @@ const Login = () => {
 			<div className='flex-1 flex flex-col items-center justify-center px-4 py-12'>
 				<div className='w-full max-w-md'>
 					<div className='flex flex-col items-center mb-10'>
-						<svg
-							className='w-20 h-20 mb-3 drop-shadow-lg'
-							viewBox='0 0 100 100'
-						>
-							<rect
-								x='20'
-								y='20'
-								width='60'
-								height='60'
-								rx='15'
-								fill='#4F46E5'
-							/>
-							<text
-								x='50'
-								y='62'
-								className='text-3xl font-bold'
-								fill='white'
-								textAnchor='middle'
-							>
-								SS
-							</text>
-						</svg>
+						<img
+							src='assets/Logo.png'
+							className='w-12 mb-4 drop-shadow-lg'
+							alt=''
+						/>
 						<h1 className='text-3xl font-bold text-center text-gray-900 mb-2'>
 							Simplifii Simplified
 						</h1>
@@ -82,7 +67,6 @@ const Login = () => {
 					</div>
 					<div className='bg-white p-8 rounded-2xl shadow-lg'>
 						<form onSubmit={(e) => handleLogin(e)} className='space-y-6'>
-							
 							<div className='space-y-5'>
 								<div>
 									<label
@@ -135,12 +119,23 @@ const Login = () => {
 								</div>
 							</div>
 
-							<button
-								type='submit'
-								className='w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors font-medium'
-							>
-								Sign in
-							</button>
+							{!loading && (
+								<button
+									type='submit'
+									className='w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors font-medium'
+								>
+									Sign in
+								</button>
+							)}
+
+							{loading && (
+								<button
+									type='submit'
+									className='w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors font-medium'
+								>
+									<LoaderCircle className='animate-spin' size={22} />
+								</button>
+							)}
 						</form>
 					</div>
 
@@ -153,13 +148,7 @@ const Login = () => {
 				</div>
 			</div>
 
-			<footer className='py-4 text-center text-gray-600'>
-				<p className='flex items-center justify-center text-sm'>
-					Made with
-					<Heart className='h-4 w-4 mx-1 text-pink-500 fill-current' />
-					by <span className='font-semibold'>Manisangh</span>
-				</p>
-			</footer>
+			<Footer />
 		</div>
 	);
 }

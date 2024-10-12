@@ -99,7 +99,7 @@ const AttendanceCard = () => {
 		}
 	};
 	return (
-		<div className='bg-white rounded-lg shadow-lg p-6 space-y-6'>
+		<div className='bg-white rounded-lg shadow-lg p-6 space-y-3'>
 			<div className='text-center'>
 				<h1 className='text-2xl font-semibold mb-4'>Attendance Overview</h1>
 				<div className='relative pt-1'>

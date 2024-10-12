@@ -9,6 +9,7 @@ export const AppProvider = ({ children }) => {
 	const [user, setUser] = useState(Cookies.get('ssroll') || "")  ;
 	const [test, setTest] = useState("");
 	const [error, setError] = useState("");
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [name, setName] = useState(Cookies.get("ssname") || "");
 	const [attendance, setAttendance] = useState(-1);
 	const [token, setToken] = useState(Cookies.get("ssjwt") || "");
@@ -28,6 +29,8 @@ export const AppProvider = ({ children }) => {
 				setAttendance,
 				token,
 				setToken,
+				isMenuOpen,
+				setIsMenuOpen
 			}}
 		>
 			{children}

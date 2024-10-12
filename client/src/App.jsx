@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import Dashboard from './pages/Dashboard';
 import { AppContext } from './contexts/AppContext';
 import { useContext } from 'react';
+import About from './pages/About';
 
 function App() {
 const {token} = useContext(AppContext)
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
 		path: "/dashboard",
 		element: token ?  <Dashboard /> : <Navigate to="/login"/>
 	},
+	{
+		path: "/about",
+		element: <About />
+	}
 ]);
 
   return (

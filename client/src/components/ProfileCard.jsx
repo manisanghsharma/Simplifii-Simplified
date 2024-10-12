@@ -6,6 +6,7 @@ import {
 	Hash,
 } from "lucide-react";
 import Cookies from 'js-cookie'
+import { toTitleCase } from "../Scripts/Attendance75";
 const ProfileCard = () => {
 	const [semester, setSemester] = useState(Cookies.get('sssemester') || '')
 	const [branch, setBranch] = useState(Cookies.get("ssbranch") || "");
@@ -16,7 +17,7 @@ const ProfileCard = () => {
 					<User className='text-gray-500' size={20} />
 					<div>
 						<p className='text-sm text-gray-500'>Name</p>
-						<p className='font-medium'>{Cookies.get('ssname')}</p>
+						<p className='font-medium'>{toTitleCase(Cookies.get('ssname'))}</p>
 					</div>
 				</div>
 				<div className='flex items-center gap-2'>

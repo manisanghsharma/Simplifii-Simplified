@@ -12,6 +12,11 @@
 @tailwind components;
 @tailwind utilities;
 
-#root{
-    @apply w-full h-screen
+
+html{
+    @apply bg-indigo-50
 }
+#root{
+    @apply w-full h-[100dvh]
+}
+

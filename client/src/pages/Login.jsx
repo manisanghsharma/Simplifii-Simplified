@@ -33,7 +33,7 @@ const handleLogin = async (e) => {
 		const token = response.data.token;
 
 		// Set items in localStorage
-		localStorage.setItem("ssroll", user);
+		localStorage.setItem("ssroll", user.toUpperCase());
 		localStorage.setItem("ssname", toTitleCase(response.data.response.name));
 
 		// Set token in state and cookie

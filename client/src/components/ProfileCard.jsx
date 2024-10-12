@@ -22,7 +22,7 @@ const ProfileCard = () => {
 		loadProfileData();
 
 		// Set up an interval to check for updates
-		const intervalId = setInterval(loadProfileData, 10); // Check every second
+		const intervalId = setInterval(loadProfileData, 100); // Check every second
 
 		// Clean up the interval on component unmount
 		return () => clearInterval(intervalId);
@@ -55,7 +55,7 @@ const ProfileCard = () => {
 				<div className='flex items-center gap-2'>
 					<Hash className='text-gray-500' size={20} />
 					<div>
-						<p className='text-sm text-gray-500'>Roll No</p>
+						<p className='text-sm text-gray-500'>Adm No</p>
 						<p className='font-medium'>{profileData.user}</p>
 					</div>
 				</div>

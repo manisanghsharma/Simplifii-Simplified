@@ -7,16 +7,14 @@ const Footer = () => {
 				Made with{" "}
 				<Heart
 					size={16}
-					fill='#EC4899'
-					color='#EC4899'
+					fill='#FF0000'
+					color='#FF0000'
 					className='animate-pulse'
 				/>{" "}
 				by{" "}
 				<span
 					className='font-bold cursor-pointer'
-					onClick={() =>
-						window.open("https://www.linkedin.com/in/manisangh/")
-					}
+					onClick={() => window.open("https://www.linkedin.com/in/manisangh/")}
 				>
 					Manisangh
 				</span>

@@ -72,7 +72,7 @@ const handleLogin = async (e) => {
 	};
 
 	return (
-		<div className='min-h-screen bg-gradient-to-b from-indigo-50 to-white flex flex-col'>
+		<div className='min-h-[100dvh] bg-gradient-to-b from-indigo-50 to-white flex flex-col'>
 			<div className='flex-1 flex flex-col items-center justify-center px-4 py-12'>
 				<div className='w-full max-w-md'>
 					<div className='flex flex-col items-center mb-10'>

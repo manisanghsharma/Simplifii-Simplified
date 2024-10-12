@@ -6,11 +6,11 @@ export const AppContext = createContext();
 
 // Create the provider component
 export const AppProvider = ({ children }) => {
-	const [user, setUser] = useState(Cookies.get('ssroll') || "")  ;
+	const [user, setUser] = useState("")  ;
 	const [test, setTest] = useState("");
 	const [error, setError] = useState("");
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const [name, setName] = useState(Cookies.get("ssname") || "");
+	const [name, setName] = useState("");
 	const [attendance, setAttendance] = useState(-1);
 	const [token, setToken] = useState(Cookies.get("ssjwt") || "");
 

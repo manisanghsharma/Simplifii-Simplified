@@ -4,44 +4,68 @@ import { User, Lock, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { AppContext } from "../contexts/AppContext";
 import Footer from "../components/Footer";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { toTitleCase } from "../Scripts/Attendance75";
 
 const Login = () => {
-	const {user, setUser, setToken, error, setError, setName} = useContext(AppContext)
+	const {user, setUser, setToken, error, setError} = useContext(AppContext)
 	const [loading, setLoading] = useState(false);
 	const [pass, setPass] = useState("")
 	const [showPassword, setShowPassword] = useState(false);
 	const navigate = useNavigate()
 	const loginApiUrl =
 		"https://abes.platform.simplifii.com/api/v1/admin/authenticate";
+	const attendanceApiUrl =
+		"https://abes.platform.simplifii.com/api/v1/custom/getCFMappedWithStudentID?embed_attendance_summary=1";
 
 	
-	const handleLogin = async(e) => {
-		try {
-			e.preventDefault()
-			setLoading(true);
-			const response = await axios.postForm(loginApiUrl, {
-				username: user,
-				password: pass,
-			});
-			Cookies.set('ssroll', user)
-			Cookies.set('ssname', response.data.response.name) 
-			setToken(response.data.token);
-			Cookies.set("ssjwt", response.data.token, {
-				expires: 100,
-			});
-			setError("");
-			navigate('/dashboard')
+const handleLogin = async (e) => {
+	try {
+		e.preventDefault();
+		setLoading(true);
 
+		// First API call
+		const response = await axios.postForm(loginApiUrl, {
+			username: user,
+			password: pass,
+		});
 
-		} catch (err) {
-			console.log(err.message);
-			setError("Invalid username or password");
-		} finally {
-			setLoading(false);
-		}
-	};
+		const token = response.data.token;
+
+		// Set items in localStorage
+		localStorage.setItem("ssroll", user);
+		localStorage.setItem("ssname", toTitleCase(response.data.response.name));
+
+		// Set token in state and cookie
+		setToken(token);
+		Cookies.set("ssjwt", token);
+
+		// Second API call
+		const response2 = await axios.get(attendanceApiUrl, {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		});
+
+		// Set additional items in localStorage
+		localStorage.setItem(
+			"sssemester",
+			response2.data.response.data[0].semester
+		);
+		localStorage.setItem("ssbranch", response2.data.response.data[0].dept);
+
+		setError("");
+
+		// Navigate after all operations are complete
+		navigate("/dashboard");
+	} catch (err) {
+		console.log(err.message);
+		setError("Invalid username or password");
+	} finally {
+		setLoading(false);
+	}
+};
+	
 
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);

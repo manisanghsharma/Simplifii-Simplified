@@ -44,7 +44,7 @@ const About = () => {
 					</div>
 				</div>
 			</main>
-			<footer className='text-gray-600 font-medium py-2 text-center'>
+			<footer className='text-gray-600 text-sm font-medium py-2 text-center'>
 				<p>
 					&copy; {new Date().getFullYear()} Simplifii Simplified. All rights
 					reserved.

@@ -1,50 +1,73 @@
-import { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../contexts/AppContext";
-import { RefreshCw, ChevronRight, LoaderCircle, Edit2 } from "lucide-react";
-
-import {
-	calcDays,
-	formatDate,
-	daysToX,
-} from "../Scripts/Attendance75";
+import { RefreshCw, ChevronRight, LoaderCircle } from "lucide-react";
+import { motion, useAnimation } from "framer-motion";
+import { calcDays, formatDate, daysToX } from "../Scripts/Attendance75";
 import axios from "axios";
-import Cookies from 'js-cookie'
 
 const AttendanceCard = () => {
-	const { attendance, setAttendance, token, setBranch, setSemester } = useContext(AppContext);
-
-	useEffect(() => {
-		const initializeData = async () => {
-			await getAttendance();
-            
-		};
-		initializeData();
-
-	}, []);
-
-	useEffect(() => {
-		if (attendance > 0) {
-			// Only run when we have valid attendance
-			if (attendance < 75) {
-				setTargetAttendance(75);
-
-			} else {
-				setTargetAttendance(Math.ceil(attendance / 5) * 5);
-			}
-		}
-	}, [attendance]);
-
+	const { attendance, setAttendance, token } = useContext(AppContext);
 	const [isEditingTarget, setIsEditingTarget] = useState(false);
 	const [targetAttendance, setTargetAttendance] = useState("");
 	const [tempTarget, setTempTarget] = useState(75);
 	const [attLoad, setattLoad] = useState(false);
 	const [current, setCurrent] = useState(0);
 	const [total, setTotal] = useState(0);
+	const [animatedAttendance, setAnimatedAttendance] = useState(0);
+
+	const controls = useAnimation();
+
+	useEffect(() => {
+		const initializeData = async () => {
+			await getAttendance();
+		};
+		initializeData();
+	}, []);
+
+	const animateAttendance = (newAttendance) => {
+		controls.start({
+			width: `${newAttendance}%`,
+			transition: { duration: 1, ease: "easeOut" },
+		});
+
+		setAnimatedAttendance(0);
+		const animationDuration = 750; // 1 second
+		const framesPerSecond = 60;
+		const totalFrames = (animationDuration / 1000) * framesPerSecond;
+		const increment = newAttendance / totalFrames;
+
+		let currentFrame = 0;
+		const intervalId = setInterval(() => {
+			if (currentFrame < totalFrames) {
+				setAnimatedAttendance((prev) =>
+					Math.min(prev + increment, newAttendance)
+				);
+				currentFrame++;
+			} else {
+				clearInterval(intervalId);
+			}
+		}, 1000 / framesPerSecond);
+	};
+
+	useEffect(() => {
+		if (attendance > 0) {
+			if (attendance < 75) {
+				setTargetAttendance(75);
+			} else {
+				setTargetAttendance(Math.ceil(attendance / 5) * 5);
+			}
+
+			animateAttendance(attendance);
+		}
+	}, [attendance]);
 
 	const attendanceApiUrl =
 		"https://abes.platform.simplifii.com/api/v1/custom/getCFMappedWithStudentID?embed_attendance_summary=1";
 
 	const handleRefresh = async () => {
+		setattLoad(true);
+		setAnimatedAttendance(0);
+		controls.start({ width: "0%" });
 		await getAttendance();
 	};
 
@@ -61,37 +84,37 @@ const AttendanceCard = () => {
 	const handleTargetSubmit = () => {
 		if (tempTarget < attendance) {
 			setTargetAttendance(Math.ceil(attendance));
-            setTempTarget(Math.ceil(attendance));
+			setTempTarget(Math.ceil(attendance));
 		} else {
 			setTargetAttendance(tempTarget);
 		}
-        setIsEditingTarget(false);
+		setIsEditingTarget(false);
 	};
 
 	const handleViewFullAttendance = () => {
 		window.open(
 			"https://abes.web.simplifii.com/dashboard.php?tab_id=2&config=student&h_tab_id=1&page=1"
 		);
-	}
+	};
 
 	const getAttendance = async () => {
 		try {
-			setattLoad(true);
+			setattLoad(true)
 			const response = await axios.get(attendanceApiUrl, {
 				headers: {
 					Authorization: "Bearer " + token,
 				},
 			});
 			const attArr = response.data.response.data;
-			setAttendance(
-				parseFloat(attArr[attArr.length - 1].attendance_summary.Percent)
+			const newAttendance = parseFloat(
+				attArr[attArr.length - 1].attendance_summary.Percent
 			);
-			console.log(attArr[0].dept);
-			
-			Cookies.set("sssemester", attArr[0].semester);
-			Cookies.set("ssbranch", attArr[0].dept);
+			setAttendance(newAttendance);
 			setCurrent(attArr[attArr.length - 1].attendance_summary.Present);
 			setTotal(attArr[attArr.length - 1].attendance_summary.Total);
+
+			// Trigger animation after setting new attendance
+			animateAttendance(newAttendance);
 		} catch (err) {
 			console.log(err.message);
 		} finally {
@@ -104,10 +127,11 @@ const AttendanceCard = () => {
 				<h1 className='text-2xl font-semibold mb-4'>Attendance Overview</h1>
 				<div className='relative pt-1'>
 					<div className='overflow-hidden h-4 mb-4 text-xs flex rounded-full bg-gray-200'>
-						<div
-							style={{ width: `${attendance}%` }}
-							className='shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-600 transition-all duration-1000 ease-out'
-						></div>
+						<motion.div
+							initial={{ width: "0%" }}
+							animate={controls}
+							className='shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-600'
+						></motion.div>
 					</div>
 					{attLoad ? (
 						<div className='flex justify-center'>
@@ -119,7 +143,7 @@ const AttendanceCard = () => {
 						</div>
 					) : (
 						<p className='text-3xl font-bold text-indigo-600 transition-all duration-1000'>
-							{attendance}%
+							{animatedAttendance.toFixed(2)}%
 						</p>
 					)}
 				</div>

@@ -52,6 +52,9 @@ export function formatDate(date) {
 }
 
 export function toTitleCase(str) {
+	if (!str) {
+		return "Error"
+	}
 	return str
 		.toLowerCase()
 		.split(" ")

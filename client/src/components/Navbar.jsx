@@ -57,15 +57,15 @@ const Navbar = () => {
 							<ul className='space-y-2'>
 								<li>
 									<Link to={"/dashboard"} onClick={() => setIsMenuOpen(false)}>
-										<button className='w-full text-[17px] text-left px-3 py-3 hover:bg-indigo-50 rounded-md flex items-center gap-3'>
-											<CircleUser size={23} /> Dashboard
+										<button className='w-full text-[16px] font-medium text-left px-3 py-3 hover:bg-indigo-50 rounded-md flex items-center gap-3'>
+											<CircleUser size={22} /> Dashboard
 										</button>
 									</Link>
 								</li>
 								<li>
 									<Link to={"/about"} onClick={() => setIsMenuOpen(false)}>
-										<button className='w-full text-[17px] text-left px-3 py-3 hover:bg-indigo-50 rounded-md flex items-center gap-3'>
-											<Info size={23} /> About
+										<button className='w-full text-[16px] text-left font-medium px-3 py-3 hover:bg-indigo-50 rounded-md flex items-center gap-3'>
+											<Info size={22} /> About
 										</button>
 									</Link>
 								</li>
@@ -77,9 +77,9 @@ const Navbar = () => {
 									setIsMenuOpen(false);
 									handleLogout();
 								}}
-								className='w-full text-[17px] text-left px-4 py-3 hover:bg-indigo-50 rounded-md flex items-center gap-3 text-red-600'
+								className='w-full text-[16px] font-medium text-left px-5 py-3 hover:bg-indigo-50 rounded-md flex items-center gap-3 text-red-600'
 							>
-								<LogOut size={23} /> Logout
+								<LogOut size={20} /> Logout
 							</button>
 						</div>
 					</div>

@@ -28,13 +28,15 @@ const Navbar = () => {
 						<Menu size={25} />
 					</button>
 
-					<div className='absolute left-1/2 transform -translate-x-1/2 flex items-center gap-3'>
+					<div
+						onClick={() => navigate("/dashboard")}
+						className='cursor-pointer absolute left-1/2 transform -translate-x-1/2 flex items-center gap-3'
+					>
 						<img
-							src='https://imgur.com/ueT2euv.png'
-							className='w-9 md:w-8 cursor-pointer'
+							src='assets/Logo.png'
+							className='w-9 md:w-8'
 							alt=''
-							loading="lazy"
-							onClick={() => navigate('/dashboard')}
+							loading='lazy'
 						/>
 						<h1 className='text-2xl font-bold text-gray-900 hidden md:block'>
 							Simplifii Simplified
@@ -47,7 +49,7 @@ const Navbar = () => {
 			<div className='h-[60px]'></div>
 
 			<div
-				className={`fixed inset-y-0 left-0 w-[55%] bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-20 ${
+				className={`fixed inset-y-0 left-0 w-[220px] bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-20 ${
 					isMenuOpen ? "translate-x-0" : "-translate-x-full"
 				}`}
 			>

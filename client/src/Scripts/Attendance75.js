@@ -1,11 +1,11 @@
-export function daysTo75 (current, total) {
-    const x = Math.ceil((3*total - 4*current)/8)
-    return x
+export function daysToX(current, total, X){
+	const x = Math.ceil((X*total-100*current)/(800-8*X))
+	return x
 }
 
-export function daysToX(current, total, X){
-	const x = Math.ceil(((total*X-100*current)/(100-X))/8)
-	return x
+export function daystoXAbs(current, total, X){
+	const x = Math.floor((total*X - 100*current)/(8*X-800));
+	return x;
 }
 
 export function calcDays(days) {

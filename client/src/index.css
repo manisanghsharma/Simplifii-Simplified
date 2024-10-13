@@ -14,7 +14,7 @@
 
 
 html{
-    @apply bg-indigo-50
+    @apply bg-indigo-50 overflow-hidden
 }
 #root{
     @apply w-full h-[100dvh]

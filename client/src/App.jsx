@@ -19,12 +19,12 @@ const router = createBrowserRouter([
 
 	{
 		path: "/dashboard",
-		element: token ?  <Dashboard /> : <Navigate to="/login"/>
+		element: token ? <Dashboard /> : <Navigate to='/login' />,
 	},
 	{
 		path: "/about",
-		element: <About />
-	}
+		element: token ? <About /> : <Navigate to='/login' />,
+	},
 ]);
 
   return (

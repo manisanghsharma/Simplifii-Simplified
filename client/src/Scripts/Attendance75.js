@@ -1,10 +1,13 @@
 export function daysToX(current, total, X){
 	const x = Math.ceil((X*total-100*current)/(800-8*X))
+	// const y = (X * total - 100 * current) / (800 - 8 * X);
 	return x
 }
 
 export function daystoXAbs(current, total, X){
-	const x = Math.floor((total*X - 100*current)/(8*X-800));
+	// const x = Math.floor((total*X - 100*current)/(8*X-800));	
+	const x = Math.ceil((total*X - 100*current)/(8*X-800));
+
 	return x;
 }
 

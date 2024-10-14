@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar"; // Adjust the import path as needed
 
 const About = () => {
 	return (
-		<div className='flex flex-col min-h-screen bg-gray-100'>
+		<div className='flex flex-col min-h-[100dvh] bg-gray-100'>
 			<Navbar />
 			<main className='flex-grow container mx-auto px-4 py-8'>
 				<div className='bg-white shadow-md rounded-lg p-6 max-w-2xl mx-auto'>

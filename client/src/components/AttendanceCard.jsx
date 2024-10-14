@@ -2,14 +2,14 @@ import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../contexts/AppContext";
 import { RefreshCw, ChevronRight, LoaderCircle } from "lucide-react";
 import { motion, useAnimation } from "framer-motion";
-import { calcDays, formatDate, daysToX } from "../Scripts/Attendance75";
+import {calcDays, formatDate, daysToX, daystoXAbs} from "../Scripts/Attendance75";
 import axios from "axios";
 
 const AttendanceCard = () => {
 	const { attendance, setAttendance, token } = useContext(AppContext);
 	const [isEditingTarget, setIsEditingTarget] = useState(false);
 	const [targetAttendance, setTargetAttendance] = useState("");
-	const [tempTarget, setTempTarget] = useState(75);
+	const [tempTarget, setTempTarget] = useState("");
 	const [attLoad, setattLoad] = useState(false);
 	const [current, setCurrent] = useState(0);
 	const [total, setTotal] = useState(0);
@@ -82,12 +82,13 @@ const AttendanceCard = () => {
 	};
 
 	const handleTargetSubmit = () => {
-		if (tempTarget < attendance) {
-			setTargetAttendance(Math.ceil(attendance));
-			setTempTarget(Math.ceil(attendance));
-		} else {
-			setTargetAttendance(tempTarget);
-		}
+		// if (tempTarget < attendance) {
+		// 	setTargetAttendance(Math.ceil(attendance));
+		// 	setTempTarget(Math.ceil(attendance));
+		// } else {
+		// 	setTargetAttendance(tempTarget);
+		// }
+		setTargetAttendance(tempTarget)
 		setIsEditingTarget(false);
 	};
 
@@ -151,7 +152,8 @@ const AttendanceCard = () => {
 
 			<div className='space-y-4 text-center'>
 				<p className='text-gray-700'>
-					You need to attend college for{" "}
+					You need to {targetAttendance > attendance ? "attend" : "miss"}{" "}
+					college for{" "}
 					{attLoad && (
 						<LoaderCircle
 							size={21}
@@ -161,7 +163,9 @@ const AttendanceCard = () => {
 					)}{" "}
 					{!attLoad && (
 						<span className='font-semibold text-black'>
-							{daysToX(current, total, targetAttendance)}
+							{targetAttendance > attendance
+								? daysToX(current, total, targetAttendance)
+								: daystoXAbs(current, total, targetAttendance)}
 						</span>
 					)}{" "}
 					working days to achieve{" "}
@@ -184,7 +188,8 @@ const AttendanceCard = () => {
 				</p>
 
 				<p className='text-gray-700'>
-					That requires presence at every lecture until{" "}
+					That requires {targetAttendance > attendance ? "presence" : "absence"}{" "}
+					at every lecture until{" "}
 					{attLoad && (
 						<LoaderCircle
 							size={21}
@@ -194,7 +199,13 @@ const AttendanceCard = () => {
 					)}
 					{!attLoad && (
 						<span className='font-semibold text-black md:block'>
-							{formatDate(calcDays(daysToX(current, total, targetAttendance)))}
+							{targetAttendance > attendance
+								? formatDate(
+										calcDays(daysToX(current, total, targetAttendance))
+								  )
+								: formatDate(
+										calcDays(daystoXAbs(current, total, targetAttendance))
+								  )}
 						</span>
 					)}
 				</p>
@@ -226,7 +237,7 @@ const AttendanceCard = () => {
 								htmlFor='targetAttendance'
 								className='block text-sm font-medium text-gray-700 mb-1'
 							>
-								Target Percentage ({Math.ceil(attendance)}-99)
+								Target Percentage (1-99)
 							</label>
 							<input
 								type='text'

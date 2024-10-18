@@ -12,7 +12,7 @@ export const AppProvider = ({ children }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [name, setName] = useState("");
 	const [attendance, setAttendance] = useState(-1);
-	const [token, setToken] = useState(Cookies.get("ssjwt") || "");
+	const [token, setToken] = useState(localStorage.getItem('token') || "");
 
 	return (
 		<AppContext.Provider

@@ -37,8 +37,9 @@ const handleLogin = async (e) => {
 		localStorage.setItem("ssname", toTitleCase(response.data.response.name));
 
 		// Set token in state and cookie
+		localStorage.setItem('token', token)
 		setToken(token);
-		Cookies.set("ssjwt", token);
+		// Cookies.set("ssjwt", token);
 
 		// Second API call
 		const response2 = await axios.get(attendanceApiUrl, {

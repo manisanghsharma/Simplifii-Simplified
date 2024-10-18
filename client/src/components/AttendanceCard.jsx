@@ -82,12 +82,6 @@ const AttendanceCard = () => {
 	};
 
 	const handleTargetSubmit = () => {
-		// if (tempTarget < attendance) {
-		// 	setTargetAttendance(Math.ceil(attendance));
-		// 	setTempTarget(Math.ceil(attendance));
-		// } else {
-		// 	setTargetAttendance(tempTarget);
-		// }
 		setTargetAttendance(tempTarget)
 		setIsEditingTarget(false);
 	};
@@ -123,10 +117,10 @@ const AttendanceCard = () => {
 		}
 	};
 	return (
-		<div className='bg-white rounded-lg shadow-lg p-6 space-y-3'>
-			<div className='text-center'>
-				<h1 className='text-2xl font-semibold mb-4'>Attendance Overview</h1>
-				<div className='relative pt-1'>
+		<div className='bg-white rounded-lg shadow-lg px-6 py-4'>
+			<div className='text-center '>
+				<h1 className='text-2xl font-semibold mb-3'>Attendance Overview</h1>
+				<div className='relative px-2'>
 					<div className='overflow-hidden h-4 mb-4 text-xs flex rounded-full bg-gray-200'>
 						<motion.div
 							initial={{ width: "0%" }}
@@ -135,7 +129,7 @@ const AttendanceCard = () => {
 						></motion.div>
 					</div>
 					{attLoad ? (
-						<div className='flex justify-center'>
+						<div className='flex justify-center mb-2'>
 							<LoaderCircle
 								className='animate-spin text-indigo-600'
 								size={36}
@@ -143,14 +137,14 @@ const AttendanceCard = () => {
 							/>
 						</div>
 					) : (
-						<p className='text-3xl font-bold text-indigo-600 transition-all duration-1000'>
+						<p className='text-3xl font-bold text-indigo-600 transition-all duration-1000 mb-2'>
 							{animatedAttendance.toFixed(2)}%
 						</p>
 					)}
 				</div>
 			</div>
 
-			<div className='space-y-4 text-center'>
+			<div className='space-y-3 text-center mb-3'>
 				<p className='text-gray-700'>
 					You need to {targetAttendance > attendance ? "attend" : "miss"}{" "}
 					college for{" "}
@@ -179,7 +173,7 @@ const AttendanceCard = () => {
 					{!attLoad && (
 						<span
 							onClick={() => setIsEditingTarget(true)}
-							className='cursor-pointer font-semibold text-black border-b border-dashed border-gray-400'
+							className='cursor-pointer font-semibold text-black border-b border-dashed border-gray-700'
 						>
 							{targetAttendance}%
 						</span>
